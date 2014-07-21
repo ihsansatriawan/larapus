@@ -31,7 +31,7 @@ App::after(function($request, $response)
 | session is logged into this application. The "basic" filter easily
 | integrates HTTP Basic authentication for quick, simple checking.
 |
-*/
+
 
 Route::filter('auth', function()
 {
@@ -45,6 +45,15 @@ Route::filter('auth', function()
 		{
 			return Redirect::guest('login');
 		}
+	}
+});
+*/
+
+Route::filter('auth', function()
+{
+	if ( !Sentry::check() )
+	{
+		return Redirect::guest('login')->with('errorMessage', 'Silahkan login terlebih dahulu.');
 	}
 });
 

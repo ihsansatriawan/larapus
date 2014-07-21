@@ -18,7 +18,7 @@ class HomeController extends BaseController {
 		// Logout user
 		Sentry::logout();
 		// Redirect user ke halaman login
-		return Redirect::to('login');
+		return Redirect::to('login')->with('successMessage', 'Anda berhasil logout');
 	}
 
 	public function authenticate()
@@ -33,10 +33,12 @@ class HomeController extends BaseController {
 			//authentikasi user
 			$user = Sentry::authenticate($credentials, false);
 			//Redirect user to dashboard
-			return Redirect::to('dashboard');
+			return Redirect::intended('dashboard');
+		} catch (Cartalyst\Sentry\Users\WrongPasswordException $e) {
+			return Redirect::back()->with('errorMessage', 'Password yang anda masukan salah.');
 		} catch (Exception $e) {
 			//kembalikan user ke halaman sebelum nya
-			return Redirect::back();
+			return Redirect::back()->with('errorMessage', trans('Akun dengan email tersebut tidak ditemukan di sistem kami.'));
 		}
 	}
 
