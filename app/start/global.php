@@ -79,3 +79,13 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+/*
+|--------------------------------------------------------------------------
+| Require The Helpers
+|--------------------------------------------------------------------------
+|
+| Here we will load helpers for Larapus.
+*/
+
+require app_path().'/helpers/frontend.php';
