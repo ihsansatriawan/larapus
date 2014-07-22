@@ -14,7 +14,8 @@ class AuthorsController extends \BaseController {
 			return Datatable::collection(Author::all(array('id','name')))
 				->showColumns('id','name')
 				->addColumn('', function($model){
-					return 'edit | hapus';
+					return '<a href="'.route('admin.authors.edit', ['authors'=>$model->id]).'">edit</a> | hapus';
+
 				})
 				->searchColumns('name')
 				->orderColumns('name')
@@ -76,7 +77,8 @@ class AuthorsController extends \BaseController {
 	{
 		$author = Author::find($id);
 
-		return View::make('authors.edit', compact('author'));
+		return View::make('authors.edit', ['author'=>$author])->withTitle("Ubah $author->name");
+
 	}
 
 	/**
@@ -89,7 +91,8 @@ class AuthorsController extends \BaseController {
 	{
 		$author = Author::findOrFail($id);
 
-		$validator = Validator::make($data = Input::all(), Author::$rules);
+		$validator = Validator::make($data = Input::all(), $author->updateRules());
+
 
 		if ($validator->fails())
 		{
@@ -98,7 +101,8 @@ class AuthorsController extends \BaseController {
 
 		$author->update($data);
 
-		return Redirect::route('authors.index');
+		return Redirect::route('admin.authors.index')->with("successMessage", "Berhasil menyimpan $author->name ");
+
 	}
 
 	/**

@@ -1,10 +1,10 @@
 <?php
 
-class Author extends \Eloquent {
+class Author extends BaseModel {
 
 	// Add your validation rules here
 	public static $rules = [
-		'name' => 'required|unique:authors'
+		'name' => 'required|unique:authors,name,:id'
 		// 'title' => 'required'
 	];
 
