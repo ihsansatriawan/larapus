@@ -6,21 +6,22 @@
 	</colgroup>
 	<thead>
 	<tr>
-		@foreach ($columns as $i => $c) {
+		@foreach($columns as $i => $c)
 		<th align="center" valign="middle" class="head{{ $i }}">{{ $c }}</th>
 		@endforeach
 	</tr>
 	</thead>
 	<tbody>
-	@foreach ($data as $d)
+	@foreach($data as $d)
 	<tr>
-		@foreach ($d as $dd)
+		@foreach($d as $dd)
 		<td>{{ $dd }}</td>
 		@endforeach
 	</tr>
 	@endforeach
 	</tbody>
 </table>
+
 @if (!$noScript)
 	@include('datatable::javascript', array('id'=> $id, 'class' => $class, 'options' => $options, 'callbacks' => $callbacks))
 @endif
