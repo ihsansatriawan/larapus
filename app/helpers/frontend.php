@@ -50,3 +50,21 @@ Form::macro('submitUk', function($title) {
 	return "<input type=\"submit\" value=\"$title\" class=\"uk-button uk-button-primary\">";
 });
 
+/**
+* Macro untuk membuat tombol tambah
+* @param $path string url to route (if any)
+* @return string generate anchor
+*/
+HTML::macro('buttonAdd', function($path = null) {
+	if ($path) {
+		$url = $path;
+	} else {
+		$url = explode('.', Route::currentRouteName());
+		array_pop($url);
+		array_push($url, 'create');
+		$url = implode('.', $url);
+		$url = route($url);
+	}
+	return '<a class="uk-button uk-button-primary" href="'.$url.'">Tambah</a>';
+});
+

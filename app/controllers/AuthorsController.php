@@ -30,7 +30,7 @@ class AuthorsController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('authors.create');
+		return View::make('authors.create')->withTitle('Tambah Penulis');
 	}
 
 	/**
@@ -47,9 +47,10 @@ class AuthorsController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-		Author::create($data);
+		$author = Author::create($data);
 
-		return Redirect::route('authors.index');
+		return Redirect::route('admin.authors.index')->with("successMessage", "Berhasil menyimpan $author->name ");
+
 	}
 
 	/**
